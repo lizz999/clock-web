@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>京北方打卡</title>
+    <script type="text/javascript">
+        document.querySelector('html').style.fontSize = window.screen.width / 20 + 'px';
+        // 尺寸更改 重新计算 （测试时使用）
+        // window.onresize = function () {
+        //     document.querySelector('html').style.fontSize = window.screen.width / 20 + 'px';
+        // }
+    </script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div class="app-container ff">
+    <div class="my-info">
+      <form id="infos">
+        <h3 class="title">京北方</h3>
+        <div class="input-row">
+            <label>姓名：</label>
+            <select class="input" id="name" name="name">
+                <option value="">--请选择--</option>
+            </select>
+        </div>
+      </form>
+      <div class="input-btn" id="submit">
+          <a class="shadow-btn">提交</a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-tab">
+    <ul>
+        <li><a class="active">京北方</a></li>
+        <li><a href="./clock.html">恒丰</a></li>
+        <li><a href="./opinion.html">配置</a></li>
+    </ul>
+  </div>
+</body>
+</html>
+
+<script src="./lib/jquery.min.js"></script>
+<script src="./lib/layer.js"></script>
+<script>
+
+    $(document).ready(function(){
+        $.ajax({
+            url: 'http://oa.zhzhao.top/api/clock/jbf/user',
+            type: 'get',
+            dataType: 'json',
+            success: function(res) {
+                if(res.repCode == 200) {
+                    var data= res.datas;
+                    for(var j=0;j<data.length;j++){
+                        $("#name").append("<option value='"+data[j]+"'>"+data[j]+"</option>");
+                    }
+                } else {
+                    layer.open({
+                        content: res.repMsg,
+                        btn: '我知道了'
+                    });
+                }
+            },
+            error: function(e) {
+                layer.open({
+                    content: '请求失败，请稍后再试！',
+                    btn: '我知道了'
+                });
+            }
+        })
+    });
+
+    $(function() {
+
+        var name = '';
+        $('#submit').on('click', function() {
+            console.log("点击提交按钮。。。")
+            name = $('#name').val();
+            if(!name) {
+                return layer.open({
+                    content: '请选择姓名',
+                    skin: 'msg',
+                    time: 3
+                });
+            }
+            toAjax();
+        })
+
+        var loading = null;
+        function toAjax() {
+            loading = layer.open({type: 2, shadeClose: false})
+            $.ajax({
+                url: 'http://oa.zhzhao.top/api/clock/jbf/do',
+                type: 'post',
+                dataType: 'json',
+                data: { 'name': name },
+                success: function(res) {
+                    layer.close(loading);
+                    if(res.repCode == 200) {
+                        layer.open({
+                            content: res.datas,
+                            btn: '我知道了',
+                        });
+                    } else {
+                        layer.open({
+                            content: res.repMsg,
+                            btn: '我知道了'
+                        });
+                    }
+                },
+                error: function(e) {
+                    layer.close(loading);
+                    layer.open({
+                        content: '请求失败，请稍后再试！',
+                        btn: '我知道了'
+                    });
+                }
+            })
+        }
+    })
+</script>

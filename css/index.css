@@ -1,0 +1,244 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100%;
+  font-size: .75rem;
+  /* background-color: #f1f2f3; */
+}
+
+input, button, select {
+  border: none;
+  outline: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.clearfix::before,
+.clearfix::after {
+  content: '';
+  display: block;
+  line-height: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.transition {
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  -webkit-transition-delay: .3s;
+  -moz-transition-delay: .3s;
+  -o-transition-delay: .3s;
+  -ms-transition-delay: .3s;
+  transition-delay: .3s;
+}
+
+.make_transist {
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  -ms-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.hidescale {
+  -webkit-transform: scale(0.9);
+  -moz-transform: scale(0.9);
+  -o-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+  -ms-filter: "alpha(opacity=0)";
+  filter: alpha(opacity=0);
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+
+.showscale {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -o-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -ms-filter: "alpha(opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+  -webkit-transition-delay: .3s;
+  -moz-transition-delay: .3s;
+  -o-transition-delay: .3s;
+  -ms-transition-delay: .3s;
+  transition-delay: .3s;
+}
+
+input[type="radio"] {
+  opacity: 0;
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+input[type="radio"] + .value {
+  display: inline-block;
+  width: 3.12rem;
+  height: 1.3866666667rem;
+  background-color: #F4F4F4;
+  border-radius: 5px;
+  color: #888;
+  font-size: 0.6933333333rem;
+  text-align: center;
+  line-height: 1.3866666667rem;
+}
+
+input[type="radio"]:checked + .value {
+  color: #fff;
+  background-color: #FCC12B;
+}
+
+.app-container {
+  width: 100%;
+  min-height: 100%;
+}
+.app-container.ff {
+  background-color: #fff;
+}
+.app-container .input-btn {
+  margin-top: 2.5rem;
+  width: 100%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9375rem;
+  background-image: linear-gradient(to right, #00d2ff, #2f80ed);
+  box-shadow: 0 0.9375rem 1.875rem rgba(35, 112, 211, 0.2);
+  border-radius: 0.3125rem;
+  cursor: pointer;
+}
+
+.app-container .opinion {
+  padding: 0.625rem;
+}
+.app-container .opinion .textarea {
+  padding: 0.625rem;
+  border: none;
+  border-radius: 0.3125rem;
+  width: 100%;
+  height: 9.375rem;
+  font-size: 0.75rem;
+  border: 1px solid #eee;
+  resize: none;
+}
+
+.app-container .my-info {
+  padding: 1.25rem 0.625rem 1.25rem;
+  height: 100%;
+}
+.app-container .my-info .title {
+  text-align: center;
+  font-size: 0.9375rem;
+  font-weight: normal;
+  line-height: 5rem;
+  margin-bottom: 1.25rem;
+}
+.app-container .my-info .input-row {
+  margin-bottom: 0.625rem;
+}
+.app-container .my-info .input-row label {
+  vertical-align: middle;
+  display: inline-block;
+  padding-right: 10px;
+  width: 67px;
+  text-align: right;
+  color: #333;
+  font-size: 14px;
+}
+.app-container .my-info .input-row .input {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0 0.625rem;
+  width: calc(100% - 77px);
+  height: 2.5rem;
+  background: #f1f2f3;
+  border-radius: 0.3125rem;
+  font-size: 0.8125rem;
+}
+.app-container .my-info .input-row .img {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f1f2f3;
+}
+.app-container .my-info .input-row .text {
+  vertical-align: middle;
+  display: inline-block;
+  width: calc(100% - 77px);
+  height: 2.5rem;
+  line-height: 2.5rem;
+  font-size: 0.8125rem;
+}
+.app-container .my-info .input-row .tipinfo {
+  margin-left: 77px;
+  margin-top: 4px;
+  color: red;
+  font-size: 12px;
+}
+
+.bottom-tab {
+  width: 100%;
+  height: 50px;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+}
+.bottom-tab ul {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 -2px 10px #eee;
+}
+.bottom-tab ul li {
+  flex: 1;
+  height: 100%;
+}
+.bottom-tab ul li+li {
+  border-left: 1px solid #eee;
+}
+.bottom-tab ul li a {
+  display: block;
+  color: #333;
+  text-align: center;
+  line-height: 50px;
+}
+.bottom-tab ul li a.active {
+  color: #2f80ed;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>恒丰打卡</title>
+    <script type="text/javascript">
+        document.querySelector('html').style.fontSize = window.screen.width / 20 + 'px';
+        // 尺寸更改 重新计算 （测试时使用）
+        // window.onresize = function () {
+        //     document.querySelector('html').style.fontSize = window.screen.width / 20 + 'px';
+        // }
+    </script>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+  <div class="app-container ff">
+    <div class="my-info">
+      <form id="infos">
+        <h3 class="title">恒丰</h3>
+        <div class="input-row">
+            <label>姓名：</label>
+            <select class="input" id="name" name="name">
+                <option value="">--请选择--</option>
+                <option value="1">张照</option>
+            </select>
+        </div>
+      </form>
+      <div class="input-btn">
+          <a class="shadow-btn" id="submit">提交</a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-tab">
+    <ul>
+        <li><a href="./index.html">京北方</a></li>
+        <li><a class="active">恒丰</a></li>
+        <li><a href="./opinion.html">配置</a></li>
+    </ul>
+  </div>
+</body>
+</html>
+
+<script src="./lib/jquery-3.3.1.min.js"></script>
+<script src="./lib/layer.js"></script>
+<script>
+    $(function() {
+        var name = '';
+        $('#submit').on('click', function() {
+            name = $('#name').val();
+            if(!name) {
+                return layer.open({
+                    content: '请选择姓名',
+                    skin: 'msg',
+                    time: 3
+                });
+            }
+            toAjax();
+        })
+
+        var loading = null;
+        function toAjax() {
+            loading = layer.open({type: 2, shadeClose: false})
+            $.ajax({
+                url: '',
+                type: 'post',
+                dataType: 'json',
+                data: { 'name': name },
+                success: function(res) {
+                    layer.close(loading);
+                    if(res.code == 200) {
+                        layer.open({
+                            content: '提交成功',
+                            btn: '我知道了',
+                            yes: function() {
+                                window.location.href = './my.html';
+                            }
+                        });
+                    } else {
+                        layer.open({
+                            content: res.msg,
+                            btn: '我知道了'
+                        });
+                    }
+                },
+                error: function(e) {
+                    layer.close(loading);
+                    layer.open({
+                        content: '请求失败，请稍后再试！',
+                        btn: '我知道了'
+                    });
+                }
+            })
+        }
+    })
+</script>
