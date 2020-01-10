@@ -18,10 +18,12 @@
   <div class="app-container ff">
     <div class="my-info">
       <form id="infos">
-        <h3 class="title">登录</h3>
+        <h3 class="title">京北方</h3>
         <div class="input-row">
-            <label>密码：</label>
-            <input class="input" id="name" type="text" placeholder="请输入密码">
+            <label>姓名：</label>
+            <select class="input" id="name" name="name">
+                <option value="">--请选择--</option>
+            </select>
         </div>
       </form>
       <div class="input-btn" id="submit">
@@ -29,20 +31,56 @@
       </div>
     </div>
   </div>
+  <div class="bottom-tab">
+    <ul>
+        <li><a class="active">京北方</a></li>
+        <li><a href="./heng.html">恒丰</a></li>
+        <li><a href="./opinion.html">配置</a></li>
+    </ul>
+  </div>
 </body>
 </html>
 
 <script src="./lib/jquery.min.js"></script>
 <script src="./lib/layer.js"></script>
 <script>
+
+    $(document).ready(function(){
+        $.ajax({
+            url: 'http://oa.zhzhao.top/api/clock/jbf/user',
+            type: 'get',
+            dataType: 'json',
+            success: function(res) {
+                if(res.repCode == 200) {
+                    var data= res.datas;
+                    for(var j=0;j<data.length;j++){
+                        $("#name").append("<option value='"+data[j]+"'>"+data[j]+"</option>");
+                    }
+                } else {
+                    layer.open({
+                        content: res.repMsg,
+                        btn: '我知道了'
+                    });
+                }
+            },
+            error: function(e) {
+                layer.open({
+                    content: '请求失败，请稍后再试！',
+                    btn: '我知道了'
+                });
+            }
+        })
+    });
+
     $(function() {
 
         var name = '';
         $('#submit').on('click', function() {
+            console.log("点击提交按钮。。。")
             name = $('#name').val();
             if(!name) {
                 return layer.open({
-                    content: '请输入密码',
+                    content: '请选择姓名',
                     skin: 'msg',
                     time: 3
                 });
@@ -61,7 +99,10 @@
                 success: function(res) {
                     layer.close(loading);
                     if(res.repCode == 200) {
-                        location.href = './jing.html';
+                        layer.open({
+                            content: res.datas,
+                            btn: '我知道了',
+                        });
                     } else {
                         layer.open({
                             content: res.repMsg,
