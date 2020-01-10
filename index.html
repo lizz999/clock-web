@@ -18,10 +18,10 @@
   <div class="app-container ff">
     <div class="my-info">
       <form id="infos">
-        <h3 class="title">登录</h3>
+        <h3 class="title">授权码</h3>
         <div class="input-row">
-            <label>密码：</label>
-            <input class="input" id="name" type="text" placeholder="请输入密码">
+            <label>授权码：</label>
+            <input class="input" id="name" type="text" placeholder="请输入授权码">
         </div>
       </form>
       <div class="input-btn" id="submit">
@@ -42,7 +42,7 @@
             name = $('#name').val();
             if(!name) {
                 return layer.open({
-                    content: '请输入密码',
+                    content: '授权码不能为空',
                     skin: 'msg',
                     time: 3
                 });
@@ -54,10 +54,10 @@
         function toAjax() {
             loading = layer.open({type: 2, shadeClose: false})
             $.ajax({
-                url: 'http://oa.zhzhao.top/api/clock/jbf/do',
+                url: 'http://oa.zhzhao.top/api/clock/auth',
                 type: 'post',
                 dataType: 'json',
-                data: { 'name': name },
+                data: { 'code': name },
                 success: function(res) {
                     layer.close(loading);
                     if(res.repCode == 200) {
